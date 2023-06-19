@@ -55,7 +55,7 @@ class CharacterDetailsViewController: UIViewController {
         characters.addItem(character: item)
         
         if let encodedData = try? JSONEncoder().encode(characters.favoriteCharacter) {
-            // Salvar os dados JSON no UserDefaults
+     
             UserDefaults.standard.set(encodedData, forKey: "favorites")
         }
         
