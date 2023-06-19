@@ -6,7 +6,7 @@ struct ImageItem: Codable {
     let gender: String
     let origin, location: Location
     let image: String
-    let episode: [String]
+    var episode: [String]
     let url: String
     let created: String
     

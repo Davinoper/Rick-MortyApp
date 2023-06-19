@@ -109,7 +109,6 @@
 		AF6D78102A3F3F5E00BBE719 /* cells */ = {
 			isa = PBXGroup;
 			children = (
-				AF6D78182A3F47CA00BBE719 /* MyCell.swift */,
 				AF6D782C2A3FD20200BBE719 /* FavCell.swift */,
 			);
 			path = cells;
@@ -139,6 +138,7 @@
 		AF6D78132A3F3F8B00BBE719 /* datasource */ = {
 			isa = PBXGroup;
 			children = (
+				AF6D78182A3F47CA00BBE719 /* MyCell.swift */,
 				AF6D781E2A3F48A200BBE719 /* CharactersDataSource.swift */,
 			);
 			path = datasource;

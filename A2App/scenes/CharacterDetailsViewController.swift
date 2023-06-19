@@ -20,6 +20,10 @@ class CharacterDetailsViewController: UIViewController {
     @IBOutlet weak var characterLastLocation: UILabel!
     @IBOutlet weak var characterImage: UIImageView!
     
+    @IBOutlet weak var characterSpecies: UILabel!
+    
+    
+    @IBOutlet weak var characterEpisodes: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +32,13 @@ class CharacterDetailsViewController: UIViewController {
         characterStatus.text = item.status
         characterLastLocation.text = item.location.name
         characterFirstLocation.text = item.origin.name
+        characterSpecies.text = item.species
         characterImage.downloaded(from: item.image)
         
         decoration()
         // Do any additional setup after loading the view.
     }
+
     
     func decoration(){
         if(characterStatus.text == "Dead"){
@@ -45,10 +51,8 @@ class CharacterDetailsViewController: UIViewController {
     }
     
     @IBAction func favoriteChar(_ sender: Any) {
+        characters.setData()
         characters.addItem(character: item)
-        
-        print(characters.favoriteCharacter.count)
-        print(characters.favoriteCharacter)
         
         if let encodedData = try? JSONEncoder().encode(characters.favoriteCharacter) {
             // Salvar os dados JSON no UserDefaults

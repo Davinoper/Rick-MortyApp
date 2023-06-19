@@ -6,6 +6,8 @@ class CharactersViewController: UIViewController {
     var characters = CharactersDataSource()
     var posts: [ImageItem]!
     let loadingViewController = LoadingViewController()
+    var currentPage = 1
+    var isLoadingData = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,7 @@ class CharactersViewController: UIViewController {
         loadingViewController.modalTransitionStyle = .coverVertical
         loadingViewController.modalPresentationStyle = .fullScreen
         self.present(loadingViewController, animated: true, completion: nil)
+        setupInfiniteScroll()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,10 +28,36 @@ class CharactersViewController: UIViewController {
                 
     }
     
+    func setupInfiniteScroll() {
+            tableView.tableFooterView = createTableFooterView()
+        }
+        
+    func createTableFooterView() -> UIView {
+        let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 50))
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.center = tableFooterView.center
+        tableFooterView.addSubview(indicator)
+        
+        return tableFooterView
+    }
+    
+    func showTableFooterView() {
+        tableView.tableFooterView?.isHidden = false
+        (tableView.tableFooterView?.subviews.first as? UIActivityIndicatorView)?.startAnimating()
+    }
+    
+    func hideTableFooterView() {
+        tableView.tableFooterView?.isHidden = true
+        (tableView.tableFooterView?.subviews.first as? UIActivityIndicatorView)?.stopAnimating()
+    }
+
+    
+    
     func loadItems() {
-        characters.loadItems(url: "https://rickandmortyapi.com/api/character?page=10",
+        characters.loadItems(url: "https://rickandmortyapi.com/api/character?page=\(currentPage)",
                              success: { (items: [ImageItem]) in
                                 self.posts = items
+            
                                 DispatchQueue.main.async {
                                     self.tableView.reloadData()
                                     self.loadingViewController.loadingOff()
@@ -38,9 +67,45 @@ class CharactersViewController: UIViewController {
                                 print("Erro")
                              })
     }
+    
+    func loadNextPage() {
+            currentPage += 1
+            isLoadingData = true
+            
+            characters.loadItems(url: "https://rickandmortyapi.com/api/character?page=\(currentPage)",
+                                 success: { (items: [ImageItem]) in
+                                    self.posts.append(contentsOf: items)
+                
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                        self.isLoadingData = false
+                                    }
+                                 },
+                                 error: {
+                                    print("Erro")
+                                 })
+        }
+    
+    
+    
 }
 
+
 extension CharactersViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            let tableHeight = scrollView.bounds.size.height
+            
+            if offsetY > contentHeight - tableHeight {
+                if !isLoadingData {
+                    showTableFooterView()
+                    loadNextPage()
+                }
+            }
+        }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         if posts == nil {
             return 0

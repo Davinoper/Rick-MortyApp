@@ -1,15 +1,13 @@
-
 import UIKit
 
 class LoadingView: UIView {
     
-    lazy var loading: UIActivityIndicatorView = {
+    lazy var loading: UIImageView = {
     
-        let loadingView = UIActivityIndicatorView()
-        loadingView.startAnimating()
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.color = .systemBlue
-        return loadingView
+        loading = UIImageView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
+        loading.image = UIImage(named: "Portal")
+ 
+        return loading
     }()
     
     lazy var labelTitle: UILabel = {
@@ -30,7 +28,22 @@ class LoadingView: UIView {
         self.backgroundColor = .green
         self.addSubview(loading)
         self.addSubview(labelTitle)
+        
+        startRotationAnimation()
     }
+    
+    func startRotationAnimation() {
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                rotationAnimation.fromValue = 0
+                rotationAnimation.toValue = CGFloat.pi * 2.0
+                rotationAnimation.duration = 4.0 // Define a duração da animação em segundos
+                rotationAnimation.repeatCount = .infinity // Define a repetição infinita da animação
+                rotationAnimation.isRemovedOnCompletion = false // Mantém a animação ativa após a conclusão
+                
+                // Adiciona a animação à camada da imagem
+        self.loading.layer.add(rotationAnimation, forKey: "continuousRotation")
+        }
+
     
     private func setConstraints() {
         let safeArea = self.safeAreaLayoutGuide

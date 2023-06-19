@@ -34,7 +34,7 @@ class CharactersDataSource {
                     let decoder = JSONDecoder()
                     let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                     
-                    if let results = json?["results"] as? [[String: Any]] {
+                    if var results = json?["results"] as? [[String: Any]] {
                         let postData = try JSONSerialization.data(withJSONObject: results, options: [])
                         let posts = try decoder.decode([ImageItem].self, from: postData)
                         success(posts)
@@ -48,8 +48,10 @@ class CharactersDataSource {
         }
     }
     
-    func setData(favoriteCharacter: [ImageItem]) {
-        self.favoriteCharacter = favoriteCharacter
+    func setData() {
+        if let favoritesData =  UserDefaults.standard.data(forKey: "favorites") {
+            self.favoriteCharacter = try! JSONDecoder().decode([ImageItem].self, from: favoritesData)
+        }
     }
     
     func addItem(character: ImageItem){

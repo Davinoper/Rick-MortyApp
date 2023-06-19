@@ -12,7 +12,7 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var favorites: [ImageItem] = []
-    var holder: [ImageItem] = []
+    var characters = CharactersDataSource()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +31,6 @@ class FavoriteViewController: UIViewController {
             favorites = try! JSONDecoder().decode([ImageItem].self, from: favoritesData)
         }
         
-        for item in favorites {
-            if let imageItem = item as? ImageItem {
-                holder.append(imageItem)
-            }
-        }
-        
         self.tableView.reloadData()
     }
   
@@ -46,7 +40,7 @@ class FavoriteViewController: UIViewController {
 extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if holder == nil{
+        if favorites == nil{
             return 0
         }
         return 1
@@ -57,14 +51,14 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if holder == nil{
+        if favorites == nil{
             return 0
         }
         return favorites.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = self.holder[indexPath.row]
+        let item = self.favorites[indexPath.row]
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "Celula", for: indexPath) as? FavCell {
             cell.characterName.text = item.name
@@ -77,6 +71,20 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! CharacterDetailsViewController
+        
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            return
+        }
+        
+        let item = favorites[indexPath.row]
+        controller.characters = characters
+        controller.item = item
+        
     }
     
     
