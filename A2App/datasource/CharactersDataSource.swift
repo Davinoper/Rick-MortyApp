@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class CharactersDataSource {
-    var characterItems: [String: [AnyObject]] = [:]
+    var favoriteCharacter: [ImageItem] = []
     
     func loadItems(url: String,
                    success: @escaping ([ImageItem]) -> (),
@@ -48,7 +48,11 @@ class CharactersDataSource {
         }
     }
     
-    func setData(characterItems: [String: [AnyObject]]) {
-        self.characterItems = characterItems
+    func setData(favoriteCharacter: [ImageItem]) {
+        self.favoriteCharacter = favoriteCharacter
+    }
+    
+    func addItem(character: ImageItem){
+        self.favoriteCharacter.append(character)
     }
 }

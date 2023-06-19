@@ -9,11 +9,8 @@ import UIKit
 
 class CharacterDetailsViewController: UIViewController {
     
-    var strName: String?
-    var strStatus: String?
-    var strLastLocation: String?
-    var strFirstLocation: String?
-    var strImage: String?
+    var characters: CharactersDataSource!
+    var item: ImageItem!
     
     @IBOutlet weak var characterName: UILabel!
     
@@ -27,11 +24,11 @@ class CharacterDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        characterName.text = strName!
-        characterStatus.text = strStatus!
-        characterLastLocation.text = strLastLocation!
-        characterFirstLocation.text = strFirstLocation
-        characterImage.downloaded(from: strImage!)
+        characterName.text = item.name
+        characterStatus.text = item.status
+        characterLastLocation.text = item.location.name
+        characterFirstLocation.text = item.origin.name
+        characterImage.downloaded(from: item.image)
         
         decoration()
         // Do any additional setup after loading the view.
@@ -45,6 +42,19 @@ class CharacterDetailsViewController: UIViewController {
         }else{
             characterStatus.textColor = .green
         }
+    }
+    
+    @IBAction func favoriteChar(_ sender: Any) {
+        characters.addItem(character: item)
+        
+        print(characters.favoriteCharacter.count)
+        print(characters.favoriteCharacter)
+        
+        if let encodedData = try? JSONEncoder().encode(characters.favoriteCharacter) {
+            // Salvar os dados JSON no UserDefaults
+            UserDefaults.standard.set(encodedData, forKey: "favorites")
+        }
+        
     }
     /*
     // MARK: - Navigation

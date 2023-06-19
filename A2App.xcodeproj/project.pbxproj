@@ -21,6 +21,8 @@
 		AF6D78252A3F5D7200BBE719 /* CharacterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6D78242A3F5D7200BBE719 /* CharacterDetailsViewController.swift */; };
 		AF6D78272A3F64D100BBE719 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6D78262A3F64D100BBE719 /* LoadingView.swift */; };
 		AF6D78292A3F64FE00BBE719 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6D78282A3F64FE00BBE719 /* LoadingViewController.swift */; };
+		AF6D782B2A3FBAEE00BBE719 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6D782A2A3FBAEE00BBE719 /* FavoriteViewController.swift */; };
+		AF6D782D2A3FD20200BBE719 /* FavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6D782C2A3FD20200BBE719 /* FavCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		AF6D78242A3F5D7200BBE719 /* CharacterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewController.swift; sourceTree = "<group>"; };
 		AF6D78262A3F64D100BBE719 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		AF6D78282A3F64FE00BBE719 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		AF6D782A2A3FBAEE00BBE719 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		AF6D782C2A3FD20200BBE719 /* FavCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				AF6D78182A3F47CA00BBE719 /* MyCell.swift */,
+				AF6D782C2A3FD20200BBE719 /* FavCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 				AF6D781A2A3F481300BBE719 /* CharactersViewController.swift */,
 				AF6D78242A3F5D7200BBE719 /* CharacterDetailsViewController.swift */,
 				AF6D78282A3F64FE00BBE719 /* LoadingViewController.swift */,
+				AF6D782A2A3FBAEE00BBE719 /* FavoriteViewController.swift */,
 			);
 			path = scenes;
 			sourceTree = "<group>";
@@ -234,7 +240,9 @@
 				AF6D781B2A3F481300BBE719 /* CharactersViewController.swift in Sources */,
 				AF6D78212A3F49B800BBE719 /* ImageItem.swift in Sources */,
 				AF6D78292A3F64FE00BBE719 /* LoadingViewController.swift in Sources */,
+				AF6D782D2A3FD20200BBE719 /* FavCell.swift in Sources */,
 				57589AC42A38821B00088BC4 /* SceneDelegate.swift in Sources */,
+				AF6D782B2A3FBAEE00BBE719 /* FavoriteViewController.swift in Sources */,
 				AF6D78252A3F5D7200BBE719 /* CharacterDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

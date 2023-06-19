@@ -14,13 +14,19 @@ class CharactersViewController: UIViewController {
         tableView.delegate = self
         
         loadItems()
+        
         loadingViewController.modalTransitionStyle = .coverVertical
         loadingViewController.modalPresentationStyle = .fullScreen
         self.present(loadingViewController, animated: true, completion: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+                
+    }
+    
     func loadItems() {
-        characters.loadItems(url: "https://rickandmortyapi.com/api/character?page=1",
+        characters.loadItems(url: "https://rickandmortyapi.com/api/character?page=10",
                              success: { (items: [ImageItem]) in
                                 self.posts = items
                                 DispatchQueue.main.async {
@@ -77,11 +83,8 @@ extension CharactersViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         let item = posts[indexPath.row]
-        controller.strName = item.name
-        controller.strFirstLocation = item.location.name
-        controller.strStatus = item.status
-        controller.strImage = item.image
-        controller.strLastLocation = item.location.name
+        controller.characters = characters
+        controller.item = item
         
     }
 }
